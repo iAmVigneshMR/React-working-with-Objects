@@ -355,14 +355,14 @@ function App() {
             // console.log(dtFullName + curValue);
             // console.log(curValue !== "" ? curValue : "llllllll");
             // if (curValue !== "") {
-              // console.log(ft[0].endsWith('From'));
-              // console.log(ft);
-              dtVal = ft[indx].endsWith('From') ? (dtFullName + ': Greater than ' + curValue) : (dtFullName + ': Less than ' + curValue);
+            // console.log(ft[0].endsWith('From'));
+            // console.log(ft);
+            dtVal = ft[indx].endsWith('From') ? (dtFullName + ': Greater than ' + curValue) : (dtFullName + ': Less than ' + curValue);
             // }
             // console.log(typeof(curValue))
             // console.log(dtVal +""+typeof(curValue))
             filData[dtName] = dtVal;
-            console.log(curValue)
+            // console.log(curValue)
             // console.log(filData);
           }
         }
@@ -442,7 +442,12 @@ function App() {
               <td>{strdata.resultsCount ? strdata.resultsCount : null}</td>
               {parseFloat(strdata.searchTypeID) === 1 || 0 ?
                 <td>
-                  {strdata.stateFullName ? <span style={{ display: "block" }}>State/Region: {strdata.stateFullName}</span> : strdata.countryName ? <span style={{ display: "block" }}>{CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country"}: {strdata.countryName}</span> : null}
+                  {/* {strdata.stateFullName ? <span style={{ display: "block" }}>State/Region: {strdata.stateFullName}</span> : strdata.countryName ? <span style={{ display: "block" }}>{CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country"}: {strdata.countryName}</span> : null} */}
+                  {<span style={{ display: "block" }}>{strdata.stateFullName ? <span>State/Region: {strdata.stateFullName}</span> : strdata.countryName ? <span>{CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country"}: {strdata.countryName}</span> : null}{strdata.isRequiredAll ? " (and)" : " (or)"}</span>}
+                  {console.log(typeof (strdata.isRequiredAll))}
+                  {/* {console.log(strdata.isRequiredFlag === "true" || true ? " (and)" : " (or)")} */}
+                  {console.log(strdata.isRequiredFlag && " (and)")}
+                  {/* {strdata.stateFullName ? <span style={{ display: "block" }}>State/Region: {strdata.stateFullName}{strdata.isRequiredFlag ? " (and)" : " (or)"}</span> : strdata.countryName ? <span style={{ display: "block" }}>{CONFIG.Region_Id !== Regions.UK ? "State/Region" : "Country"}: {strdata.countryName}{strdata.isRequiredFlag ? " (and)" : " (or)"}</span> : null} */}
                   {/* {console.log(typeof(first))} */}
                   {/* {Object.entries(strdata).filter()} */}
                   {/* {(strdata) => } */}
