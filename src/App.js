@@ -375,10 +375,20 @@ function App() {
       // console.log(ftDup);
       // }
       let filterOrder = ftDup.filterConditionOrder?.split(",") ?? [];
+      // console.log(filterOrder);
       let isRequiredFlag = [ftDup.isRequiredAll];
+      // console.log(isRequiredFlag);
+      let stateName = [ftDup.stateFullName ? "State/Region:" + ftDup.stateFullName : ftDup.countryName ? CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country :"+ ftDup.countryName : null];
+      // let stateName = [ftDup.stateFullName ? "State/Region:" + ftDup.stateFullName : ftDup.countryName ? CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country :"+ ftDup.countryName : null];
+      console.log(stateName);
+      // let parsedStatename = JSON.parse(stateName)
+      // console.log(typeof(stateName));
+      // console.log(stateName);
+      // {<span style={{ display: "block" }}>{strdata.stateFullName ? <span>State/Region: {strdata.stateFullName}</span> : strdata.countryName ? <span>{CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country"}: {strdata.countryName}</span> : null}</span>}
       // console.log(isRequiredFlag);
       // console.log(filterOrder);
       let backupFields = {};
+      let fil = {};
       if (filterOrder.length > 0) {
         filterOrder.map(val => {
           let filterCount = MDTMarketCondition.filter(fd => fd.id === Number(val))[0];
@@ -399,10 +409,39 @@ function App() {
               // console.log(val)
               // ` (${isRequiredFlag ? 'and' : 'or'})`
               // console.log(ftDup.isRequiredAll);
-              let fil = isRequiredFlag.map(val => val ? '(and)' : '(or)')
-              // console.log(fil)
+              // let sts = stateName.map(val => console.log(val));
+// console.log(typeof(stateName));
+// console.log(stsFilData);
+              // let stsFilData = Object.assign(filData, stateName);
+              fil = isRequiredFlag.map(val => val ? '(and)' : '(or)');
+              // let andFilData = Object.assign(filData, fil);
+              // console.log(andFilData);
+              // console.log(typeof(fil));
+              // console.log(isRequiredFlag);
               // console.log(backupFields);
-              backupFields[val] = `${filData[val]}  ${fil}`;
+              // backupFields[val] = `${filData[val]}  ${fil}`;
+              backupFields[val] = filData[val];
+              // console.log(backupFields)
+              // console.log(stateName);
+              // backupFields = Object.assign(stateName, backupFields);
+              // backupFields = {...stateName, ...backupFields};
+              // backupFields = {stateName, backupFields};
+              // backupFields = Object.assign(backupFields, fil);
+              // console.log(backupFields);
+              // let tt={};
+              // Object.entries(backupFields).map(([key, value], i) => {
+              //     // value
+              //     tt = value;
+              //     // console.log(key +value);
+              // })
+              // console.log(tt);
+              // console.log(backupFields);
+              // let stsFilData = Object.assign(backupFields, stateName);
+              // let jointData = `${stsFilData}  ${fil}`
+              // console.log(filData[val]);
+              // console.log(typeof(backupFields));
+              // console.log(jointData);
+              // console.log(val)
             });
           }
         });
@@ -412,9 +451,15 @@ function App() {
       // console.log(sortedData);
       // console.log(typeof(ftDup.isRequiredAll && "yellow"));
       // console.log(ftDup.isRequiredFlag ? 'and' : 'or');
+      backupFields = Object.assign(stateName, backupFields);
+      console.log(backupFields);
+      let dtdFtp = Object.assign({}, fil);
       return {
         // ...dtd,
+        dtdFtp,
         ...ftDup,
+        // stateName,
+        fil,
         sortedData: backupFields
         // filData
       }
@@ -443,21 +488,28 @@ function App() {
               {parseFloat(strdata.searchTypeID) === 1 || 0 ?
                 <td>
                   {/* {strdata.stateFullName ? <span style={{ display: "block" }}>State/Region: {strdata.stateFullName}</span> : strdata.countryName ? <span style={{ display: "block" }}>{CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country"}: {strdata.countryName}</span> : null} */}
-                  {<span style={{ display: "block" }}>{strdata.stateFullName ? <span>State/Region: {strdata.stateFullName}</span> : strdata.countryName ? <span>{CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country"}: {strdata.countryName}</span> : null}{strdata.isRequiredAll ? " (and)" : " (or)"}</span>}
-                  {console.log(typeof (strdata.isRequiredAll))}
+                  {/* {<span style={{ display: "block" }}>{strdata.stateFullName ? <span>State/Region: {strdata.stateFullName}</span> : strdata.countryName ? <span>{CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country"}: {strdata.countryName}</span> : null}{strdata.isRequiredAll ? " (and)" : " (or)"}</span>} */}
+                  {/* {<span style={{ display: "block" }}>{strdata.stateFullName ? <span>State/Region: {strdata.stateFullName}</span> : strdata.countryName ? <span>{CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country"}: {strdata.countryName}</span> : null}</span>} */}
+                  {/* {console.log(strdata[0])} */}
                   {/* {console.log(strdata.isRequiredFlag === "true" || true ? " (and)" : " (or)")} */}
-                  {console.log(strdata.isRequiredFlag && " (and)")}
+                  {/* {console.log(strdata.isRequiredFlag && " (and)")} */}
                   {/* {strdata.stateFullName ? <span style={{ display: "block" }}>State/Region: {strdata.stateFullName}{strdata.isRequiredFlag ? " (and)" : " (or)"}</span> : strdata.countryName ? <span style={{ display: "block" }}>{CONFIG.Region_Id !== Regions.UK ? "State/Region" : "Country"}: {strdata.countryName}{strdata.isRequiredFlag ? " (and)" : " (or)"}</span> : null} */}
                   {/* {console.log(typeof(first))} */}
                   {/* {Object.entries(strdata).filter()} */}
                   {/* {(strdata) => } */}
                   {/* {strdata.filData.averageRentalCostPerStoreRange}
                   {console.log(strdata.filData)} */}
-                  {/* {console.log(strdata)} */}
+                  {/* {console.log(strdata.isRequiredAll ? '(and)' : '(or)')} */}
+                  {/* {console.log(Object.entries(strdata.sortedData).length -1)} */}
                   {Object.entries(strdata.sortedData).map(([key, value], i) => {
                     return (
                       <div key={key}>
-                        {value}
+                        {/* {console.log((Object.keys(strdata.sortedData).length - 1) !== i ? strdata.isRequiredAll ? '(and)' : '(or)' : "")} */}
+                        {value} {(Object.keys(strdata.sortedData).length - 1) !== i ? strdata.isRequiredAll ? '(and)' : '(or)' : ""}
+                        {/* {value} {strdata[0]} */}
+                        {/* {console.log((strdata.fil).length-1)} */}
+                        {/* {value} {strdata[0]? strdata[0]:null} */}
+                        {/* {console.log(typeof(strdata[0]))} */}
                         {/* {console.log(parseFloat(strdata.searchTypeID)) === 1 ? "gel":"hhh"}
                   {parseFloat(strdata.searchTypeID) !== 1 ? null : value} */}
                       </div>
