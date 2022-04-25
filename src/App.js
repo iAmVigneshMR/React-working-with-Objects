@@ -357,13 +357,22 @@ function App() {
             // if (curValue !== "") {
             // console.log(ft[0].endsWith('From'));
             // console.log(ft);
-            dtVal = ft[indx].endsWith('From') ? (dtFullName + ': Greater than ' + curValue) : (dtFullName + ': Less than ' + curValue);
+            if (curValue !== "")dtVal = ft[indx].endsWith('From') ? (dtFullName + ': Greater than ' + curValue) : (dtFullName + ': Less than ' + curValue);
             // }
             // console.log(typeof(curValue))
             // console.log(dtVal +""+typeof(curValue))
             filData[dtName] = dtVal;
             // console.log(curValue)
             // console.log(filData);
+
+            // let dtName = ft[0].replace(/From|To/g, '');
+            // let dtFullName = filterName[dtName];
+            // let indx = ftDup[ft[0]] ? 0 : 1;
+            // let curValue = "";
+            // if (ftDup[ft[indx]] !== null) curValue = formatValue(Number(ftDup[ft[indx]]), ConditionsFormat[dtName]);
+            // let dtVal = ""
+            // if (curValue !== "") dtVal = ft[indx].endsWith('From') ? (dtFullName + ': Greater than ' + curValue) : (dtFullName + ': Less than ' + curValue);
+            // filData[dtName] = dtVal;
           }
         }
         // let dataConcat = data.concat(filData);
@@ -380,7 +389,7 @@ function App() {
       // console.log(isRequiredFlag);
       let stateName = [ftDup.stateFullName ? "State/Region:" + ftDup.stateFullName : ftDup.countryName ? CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country :"+ ftDup.countryName : null];
       // let stateName = [ftDup.stateFullName ? "State/Region:" + ftDup.stateFullName : ftDup.countryName ? CONFIGRegion_Id !== "Regions.UK" ? "State/Region" : "Country :"+ ftDup.countryName : null];
-      console.log(stateName);
+      // console.log(stateName);
       // let parsedStatename = JSON.parse(stateName)
       // console.log(typeof(stateName));
       // console.log(stateName);
@@ -394,7 +403,16 @@ function App() {
           let filterCount = MDTMarketCondition.filter(fd => fd.id === Number(val))[0];
           // console.log(filterCount.apiName);
           if (filterCount.id === Number(val)) {
-            let currentFields = Object.keys(filData).filter(val => val.replace(/From|To/g, '') === filterCount.apiName);
+            // console.log(filData === "");
+            // let currentFields = Object.keys(filData).filter(val => val.replace(/From|To/g, '') === filterCount.apiName);
+            let currentFields = Object.keys(filData).filter(val => (filData[val] !== "") && val.replace(/From|To/g, '') === filterCount.apiName);
+            // let currentFields = Object.keys(filData).filter(val => {
+            //   if(filData[val] !== ""){
+            //     val.replace(/From|To/g, '') === filterCount.apiName;
+            //   }
+            //   console.log(filData[val] === "");
+            // });
+            // console.log(currentFields);
             // let currentFields = Object.keys(filData).filter(val => val === filterCount.apiName);
             // let currentFields = Object.keys(filData).filter(val => {
             //   console.log(val);
@@ -420,8 +438,9 @@ function App() {
               // console.log(isRequiredFlag);
               // console.log(backupFields);
               // backupFields[val] = `${filData[val]}  ${fil}`;
-              backupFields[val] = filData[val];
+              // console.log(filData[val])
               // console.log(backupFields)
+              backupFields[val] = filData[val];
               // console.log(stateName);
               // backupFields = Object.assign(stateName, backupFields);
               // backupFields = {...stateName, ...backupFields};
@@ -435,6 +454,7 @@ function App() {
               //     // console.log(key +value);
               // })
               // console.log(tt);
+              // backupFields = Object.assign(stateName, backupFields);
               // console.log(backupFields);
               // let stsFilData = Object.assign(backupFields, stateName);
               // let jointData = `${stsFilData}  ${fil}`
@@ -451,8 +471,7 @@ function App() {
       // console.log(sortedData);
       // console.log(typeof(ftDup.isRequiredAll && "yellow"));
       // console.log(ftDup.isRequiredFlag ? 'and' : 'or');
-      backupFields = Object.assign(stateName, backupFields);
-      console.log(backupFields);
+      // console.log(backupFields);
       let dtdFtp = Object.assign({}, fil);
       return {
         // ...dtd,
@@ -470,6 +489,7 @@ function App() {
   // console.log(first);
   let CONFIGRegion_Id = "Regions.UK";
   let CONFIGCurrency_Symbol = "$";
+  let tyt = null;
   return (
     <div className="App">
       <table>
@@ -501,15 +521,18 @@ function App() {
                   {console.log(strdata.filData)} */}
                   {/* {console.log(strdata.isRequiredAll ? '(and)' : '(or)')} */}
                   {/* {console.log(Object.entries(strdata.sortedData).length -1)} */}
+                  {<span style={{ display: "block" }}>{strdata.stateFullName ? <span>State/Region: {strdata.stateFullName}</span> : strdata.countryName ? <span>{CONFIGRegion_Id !== "RegionsUK" ? "State/Region" : "Country"}: {strdata.countryName}</span> : null} {(Object.keys(strdata.sortedData).length > 0)  && (strdata.stateFullName || strdata.countryName) ? strdata.isRequiredAll ? '(and)' : '(or)' : ""}</span>}
                   {Object.entries(strdata.sortedData).map(([key, value], i) => {
                     return (
                       <div key={key}>
                         {/* {console.log((Object.keys(strdata.sortedData).length - 1) !== i ? strdata.isRequiredAll ? '(and)' : '(or)' : "")} */}
-                        {value} {(Object.keys(strdata.sortedData).length - 1) !== i ? strdata.isRequiredAll ? '(and)' : '(or)' : ""}
+                        {value} {(Object.keys(strdata.sortedData).length - 1) !== i && value !== null ? strdata.isRequiredAll ? '(and)' : '(or)' : ""}
                         {/* {value} {strdata[0]} */}
                         {/* {console.log((strdata.fil).length-1)} */}
                         {/* {value} {strdata[0]? strdata[0]:null} */}
-                        {/* {console.log(typeof(strdata[0]))} */}
+                        {/* {console.log(value === null ? "hello": "")} */}
+                        {/* {console.log(tyt + (Object.keys(strdata.sortedData).length - 1) !== i ? strdata.isRequiredAll ? '(and)' : '(or)' : "")} */}
+                        {/* {console.log(tyt && tyt === null ?  '(and)' : '(or)')} */}
                         {/* {console.log(parseFloat(strdata.searchTypeID)) === 1 ? "gel":"hhh"}
                   {parseFloat(strdata.searchTypeID) !== 1 ? null : value} */}
                       </div>
